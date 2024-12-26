@@ -9,7 +9,18 @@
 </head>
 <body>
     <h1>DateQuizz</h1>
-    <button id="openModal">Ajouter un élément</button>
+    <div id="exerciseOutput"></div>
+    <div id="validationResult"></div>
+
+    <!-- Menu de navigation -->
+    <div class="bottom-nav">
+        <button id="openModal">Ajouter un élément</button>
+        <button id="generateExercise">Générer un exercice</button>
+        <button id="validateExercise">Valider l'exercice</button>
+        <button id="clearList">Effacer la liste</button>
+    </div>
+
+    <!-- Modal pour ajouter un élément -->
     <div id="myModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
@@ -29,11 +40,7 @@
             </form>
         </div>
     </div>
-    <button id="generateExercise">Générer un exercice</button>
-    <div id="exerciseOutput"></div>
-    <button id="validateExercise">Valider l'exercice</button>
-    <div id="validationResult"></div>
-    <button id="clearList">Effacer la liste</button>
+
     <script src="app.js"></script>
 </body>
 </html>
