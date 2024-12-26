@@ -5,27 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DateQuizz</title>
     <link rel="stylesheet" href="styles.css">
-    
-        <!-- ... autres balises ... -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
-    
 </head>
 <body>
     <h1>DateQuizz</h1>
-    <form id="itemForm">
-        <label for="date">Date:</label>
-        <input type="date" id="date" required>
-        <label for="label">Libellé:</label>
-        <input type="text" id="label" required>
-        <label for="summary">Résumé:</label>
-        <textarea id="summary" required></textarea>
-        <button type="submit">Ajouter</button>
-    </form>
+    <button id="openModal">Ajouter un élément</button>
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form id="itemForm">
+                <label for="date">Date:</label>
+                <input type="date" id="date" required>
+                <label for="label">Libellé:</label>
+                <input type="text" id="label" required>
+                <label for="summary">Résumé:</label>
+                <textarea id="summary" required></textarea>
+                <button type="submit">Ajouter</button>
+            </form>
+        </div>
+    </div>
     <button id="generateExercise">Générer un exercice</button>
     <div id="exerciseOutput"></div>
-    <script src="app.js"></script>
     <button id="validateExercise">Valider l'exercice</button>
     <div id="validationResult"></div>
     <button id="clearList">Effacer la liste</button>
+    <script src="app.js"></script>
 </body>
 </html>

@@ -5,6 +5,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const clearListButton = document.getElementById('clearList');
     const exerciseOutput = document.getElementById('exerciseOutput');
     const validationResult = document.getElementById('validationResult');
+    const openModalButton = document.getElementById('openModal');
+    const modal = document.getElementById('myModal');
+    const closeModalButton = document.getElementsByClassName('close')[0];
+
+    openModalButton.addEventListener('click', () => {
+        modal.style.display = 'block';
+    });
+
+    closeModalButton.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+
+    window.addEventListener('click', (event) => {
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    });
 
     form.addEventListener('submit', (event) => {
         event.preventDefault();
@@ -14,11 +31,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         addItem(date, label, summary);
         form.reset();
+        modal.style.display = 'none';
+        generateAndDisplayExercise();
     });
 
     generateExerciseButton.addEventListener('click', () => {
-        const exercise = generateExercise();
-        displayExercise(exercise);
+        generateAndDisplayExercise();
     });
 
     validateExerciseButton.addEventListener('click', () => {
@@ -91,15 +109,15 @@ document.addEventListener('DOMContentLoaded', () => {
             animation: 150
         });
     }
-    
+
     function validateExercise() {
         resetValidationClasses();
-    
+
         const datesContainer = document.getElementById('datesContainer');
         const labelsContainer = document.getElementById('labelsContainer');
         const dateItems = datesContainer.getElementsByClassName('exercise-item');
         const labelItems = labelsContainer.getElementsByClassName('exercise-item');
-    
+
         let correct = true;
         for (let i = 0; i < dateItems.length; i++) {
             const date = dateItems[i].textContent;
@@ -117,18 +135,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 correct = false;
             }
         }
-    
+
         validationResult.textContent = correct ? 'Toutes les associations sont correctes !' : 'Il y a des erreurs dans les associations.';
     }
 
     function resetValidationClasses() {
         const dateItems = document.querySelectorAll('#datesContainer .exercise-item');
         const labelItems = document.querySelectorAll('#labelsContainer .exercise-item');
-    
+
         dateItems.forEach(item => {
             item.classList.remove('correct', 'incorrect');
         });
-    
+
         labelItems.forEach(item => {
             item.classList.remove('correct', 'incorrect');
         });
@@ -138,5 +156,18 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.removeItem('items');
         exerciseOutput.innerHTML = '';
         validationResult.textContent = '';
+        modal.style.display = 'block';
     }
+
+    function generateAndDisplayExercise() {
+        const exercise = generateExercise();
+        if (exercise.length === 0) {
+            modal.style.display = 'block';
+        } else {
+            displayExercise(exercise);
+        }
+    }
+
+    // Générer et afficher l'exercice automatiquement au chargement de la page
+    generateAndDisplayExercise();
 });
