@@ -170,3 +170,65 @@ button:hover {
 .bottom-nav button:hover {
     background-color: #4cae4c;
 }
+
+#datesContainer, #labelsContainer, #summariesContainer {
+    display: inline-block;
+    width: 30%;
+    vertical-align: top;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+}
+
+.exercise-item {
+    padding: 10px;
+    margin: 5px 0;
+    background-color: #e7f3fe;
+    border-left: 6px solid #2196F3;
+    cursor: move;
+}
+
+.exercise-item.correct {
+    background-color: #dff0d8; /* Vert clair pour correct */
+    border-left-color: #3c763d; /* Vert foncé pour correct */
+}
+
+.exercise-item.incorrect {
+    background-color: #f2dede; /* Rouge clair pour incorrect */
+    border-left-color: #a94442; /* Rouge foncé pour incorrect */
+}
+#datesContainer, #labelsContainer, #summariesContainer {
+    display: inline-block;
+    width: 30%;
+    vertical-align: top;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+}
+
+#datesContainer h3, #labelsContainer h3, #summariesContainer h3 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.exercise-item {
+    padding: 10px;
+    margin: 5px 0;
+    background-color: #e7f3fe;
+    border-left: 6px solid #2196F3;
+    cursor: move;
+}
+
+.exercise-item.correct {
+    background-color: #dff0d8; /* Vert clair pour correct */
+    border-left-color: #3c763d; /* Vert foncé pour correct */
+}
+
+.exercise-item.incorrect {
+    background-color: #f2dede; /* Rouge clair pour incorrect */
+    border-left-color: #a94442; /* Rouge foncé pour incorrect */
+}

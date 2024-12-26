@@ -98,6 +98,21 @@ document.addEventListener('DOMContentLoaded', () => {
         datesContainer.id = 'datesContainer';
         const labelsContainer = document.createElement('div');
         labelsContainer.id = 'labelsContainer';
+        const summariesContainer = document.createElement('div');
+        summariesContainer.id = 'summariesContainer';
+
+        // Ajouter les titres des colonnes
+        const dateTitle = document.createElement('h3');
+        dateTitle.textContent = 'Dates';
+        datesContainer.appendChild(dateTitle);
+
+        const labelTitle = document.createElement('h3');
+        labelTitle.textContent = 'Libellés';
+        labelsContainer.appendChild(labelTitle);
+
+        const summaryTitle = document.createElement('h3');
+        summaryTitle.textContent = 'Résumés';
+        summariesContainer.appendChild(summaryTitle);
 
         exercise.forEach(item => {
             const dateDiv = document.createElement('div');
@@ -109,10 +124,16 @@ document.addEventListener('DOMContentLoaded', () => {
             labelDiv.className = 'exercise-item';
             labelDiv.textContent = item.label;
             labelsContainer.appendChild(labelDiv);
+
+            const summaryDiv = document.createElement('div');
+            summaryDiv.className = 'exercise-item';
+            summaryDiv.textContent = item.summary;
+            summariesContainer.appendChild(summaryDiv);
         });
 
         exerciseOutput.appendChild(datesContainer);
         exerciseOutput.appendChild(labelsContainer);
+        exerciseOutput.appendChild(summariesContainer);
 
         new Sortable(datesContainer, {
             group: 'shared',
@@ -123,6 +144,11 @@ document.addEventListener('DOMContentLoaded', () => {
             group: 'shared',
             animation: 150
         });
+
+        new Sortable(summariesContainer, {
+            group: 'shared',
+            animation: 150
+        });
     }
 
     function validateExercise() {
@@ -130,23 +156,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const datesContainer = document.getElementById('datesContainer');
         const labelsContainer = document.getElementById('labelsContainer');
+        const summariesContainer = document.getElementById('summariesContainer');
         const dateItems = datesContainer.getElementsByClassName('exercise-item');
         const labelItems = labelsContainer.getElementsByClassName('exercise-item');
+        const summaryItems = summariesContainer.getElementsByClassName('exercise-item');
 
         let correct = true;
         for (let i = 0; i < dateItems.length; i++) {
             const date = dateItems[i].textContent;
             const label = labelItems[i].textContent;
+            const summary = summaryItems[i].textContent;
             const items = readItems();
-            const item = items.find(item => item.date === date && item.label === label);
+            const item = items.find(item => item.date === date && item.label === label && item.summary === summary);
             if (item) {
                 dateItems[i].classList.add('correct');
                 labelItems[i].classList.add('correct');
-                console.log(`Correct: ${date} - ${label}`);
+                summaryItems[i].classList.add('correct');
+                console.log(`Correct: ${date} - ${label} - ${summary}`);
             } else {
                 dateItems[i].classList.add('incorrect');
                 labelItems[i].classList.add('incorrect');
-                console.log(`Incorrect: ${date} - ${label}`);
+                summaryItems[i].classList.add('incorrect');
+                console.log(`Incorrect: ${date} - ${label} - ${summary}`);
                 correct = false;
             }
         }
@@ -157,12 +188,17 @@ document.addEventListener('DOMContentLoaded', () => {
     function resetValidationClasses() {
         const dateItems = document.querySelectorAll('#datesContainer .exercise-item');
         const labelItems = document.querySelectorAll('#labelsContainer .exercise-item');
+        const summaryItems = document.querySelectorAll('#summariesContainer .exercise-item');
 
         dateItems.forEach(item => {
             item.classList.remove('correct', 'incorrect');
         });
 
         labelItems.forEach(item => {
+            item.classList.remove('correct', 'incorrect');
+        });
+
+        summaryItems.forEach(item => {
             item.classList.remove('correct', 'incorrect');
         });
     }
