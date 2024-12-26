@@ -14,8 +14,13 @@
         <div class="modal-content">
             <span class="close">&times;</span>
             <form id="itemForm">
+                <label for="dateFormat">Format de la date:</label>
+                <select id="dateFormat" required>
+                    <option value="year">Année</option>
+                    <option value="month-year">Mois-Année</option>
+                </select>
                 <label for="date">Date:</label>
-                <input type="date" id="date" required>
+                <input type="text" id="date" placeholder="YYYY ou MM/YYYY" required>
                 <label for="label">Libellé:</label>
                 <input type="text" id="label" required>
                 <label for="summary">Résumé:</label>

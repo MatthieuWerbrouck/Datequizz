@@ -25,9 +25,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     form.addEventListener('submit', (event) => {
         event.preventDefault();
+        const dateFormat = document.getElementById('dateFormat').value;
         const date = document.getElementById('date').value;
         const label = document.getElementById('label').value;
         const summary = document.getElementById('summary').value;
+
+        if (!validateDate(date, dateFormat)) {
+            alert('Format de date invalide. Utilisez YYYY pour Année ou MM/YYYY pour Mois-Année.');
+            return;
+        }
 
         addItem(date, label, summary);
         form.reset();
@@ -60,6 +66,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const items = readItems();
         items.push({ date, label, summary });
         writeItems(items);
+    }
+
+    function validateDate(date, format) {
+        if (format === 'year') {
+            return /^\d{4}$/.test(date); // Vérifie le format YYYY
+        } else if (format === 'month-year') {
+            return /^(0[1-9]|1[0-2])\/\d{4}$/.test(date); // Vérifie le format MM/YYYY
+        }
+        return false;
     }
 
     function generateExercise() {
