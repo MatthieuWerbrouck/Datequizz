@@ -1,0 +1,108 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+
+h1 {
+    color: #333;
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+input[type="text"],
+input[type="date"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #5cb85c;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #4cae4c;
+}
+
+.exercise {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #e7f3fe;
+    border-left: 6px solid #2196F3;
+}
+#datesContainer, #labelsContainer {
+    display: inline-block;
+    width: 45%;
+    vertical-align: top;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+}
+
+.exercise-item {
+    padding: 10px;
+    margin: 5px 0;
+    background-color: #e7f3fe;
+    border-left: 6px solid #2196F3;
+    cursor: move;
+}
+#validationResult {
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+#validationResult.correct {
+    background-color: #dff0d8;
+    color: #3c763d;
+}
+
+#validationResult.incorrect {
+    background-color: #f2dede;
+    color: #a94442;
+}
+
+#validationResult {
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+#validationResult.correct {
+    background-color: #dff0d8;
+    color: #3c763d;
+}
+
+#validationResult.incorrect {
+    background-color: #f2dede;
+    color: #a94442;
+}
+
+.exercise-item.correct {
+    background-color: #dff0d8; /* Vert clair pour correct */
+    border-left-color: #3c763d; /* Vert foncé pour correct */
+}
+
+.exercise-item.incorrect {
+    background-color: #f2dede; /* Rouge clair pour incorrect */
+    border-left-color: #a94442; /* Rouge foncé pour incorrect */
+}
