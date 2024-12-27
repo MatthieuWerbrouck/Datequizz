@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const exerciseOutput = document.getElementById('exerciseOutput');
     const validationResult = document.getElementById('validationResult');
     const openModalButton = document.getElementById('openModal');
+    const difficultySelect = document.getElementById('difficulty');
     const modal = document.getElementById('myModal');
     const closeModalButton = document.getElementsByClassName('close')[0];
 
@@ -152,6 +153,8 @@ document.addEventListener('DOMContentLoaded', () => {
         shuffleArray(labels);
         shuffleArray(summaries);
 
+        const difficulty = difficultySelect.value;
+
         exercise.forEach(item => {
             const row = document.createElement('tr');
 
@@ -159,19 +162,24 @@ document.addEventListener('DOMContentLoaded', () => {
             const labelCell = document.createElement('td');
             const summaryCell = document.createElement('td');
 
-            const emptyIndex = Math.floor(Math.random() * 3);
-            if (emptyIndex === 0) {
+            const emptyIndices = difficulty === 'easy' ? [Math.floor(Math.random() * 3)] : [Math.floor(Math.random() * 3), (Math.floor(Math.random() * 2) + 1) % 3];
+
+            if (emptyIndices.includes(0)) {
                 dateCell.appendChild(createDropdown(dates, item.date));
-                labelCell.textContent = item.label;
-                summaryCell.textContent = item.summary;
-            } else if (emptyIndex === 1) {
-                dateCell.textContent = item.date;
-                labelCell.appendChild(createDropdown(labels, item.label));
-                summaryCell.textContent = item.summary;
             } else {
                 dateCell.textContent = item.date;
+            }
+
+            if (emptyIndices.includes(1)) {
+                labelCell.appendChild(createDropdown(labels, item.label));
+            } else {
                 labelCell.textContent = item.label;
+            }
+
+            if (emptyIndices.includes(2)) {
                 summaryCell.appendChild(createDropdown(summaries, item.summary));
+            } else {
+                summaryCell.textContent = item.summary;
             }
 
             row.appendChild(dateCell);
