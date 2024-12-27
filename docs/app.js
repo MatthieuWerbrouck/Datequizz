@@ -86,6 +86,13 @@ document.addEventListener('DOMContentLoaded', () => {
         return exerciseItems;
     }
 
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+
     function displayExercise(exercise) {
         exerciseOutput.innerHTML = '';
 
@@ -114,20 +121,33 @@ document.addEventListener('DOMContentLoaded', () => {
         summaryTitle.textContent = 'Résumés';
         summariesContainer.appendChild(summaryTitle);
 
-        exercise.forEach(item => {
+        // Mélanger les éléments de chaque colonne
+        const dates = exercise.map(item => item.date);
+        const labels = exercise.map(item => item.label);
+        const summaries = exercise.map(item => item.summary);
+
+        shuffleArray(dates);
+        shuffleArray(labels);
+        shuffleArray(summaries);
+
+        dates.forEach(date => {
             const dateDiv = document.createElement('div');
             dateDiv.className = 'exercise-item';
-            dateDiv.textContent = item.date;
+            dateDiv.textContent = date;
             datesContainer.appendChild(dateDiv);
+        });
 
+        labels.forEach(label => {
             const labelDiv = document.createElement('div');
             labelDiv.className = 'exercise-item';
-            labelDiv.textContent = item.label;
+            labelDiv.textContent = label;
             labelsContainer.appendChild(labelDiv);
+        });
 
+        summaries.forEach(summary => {
             const summaryDiv = document.createElement('div');
             summaryDiv.className = 'exercise-item';
-            summaryDiv.textContent = item.summary;
+            summaryDiv.textContent = summary;
             summariesContainer.appendChild(summaryDiv);
         });
 
