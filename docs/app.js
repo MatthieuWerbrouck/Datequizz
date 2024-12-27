@@ -17,6 +17,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeOptionsButton = document.getElementsByClassName('close-options')[0];
     const optionsForm = document.getElementById('optionsForm');
 
+    // Charger les options depuis localStorage
+    const savedDifficulty = localStorage.getItem('difficulty');
+    if (savedDifficulty) {
+        difficultySelect.value = savedDifficulty;
+    }
+
     openModalButton.addEventListener('click', () => {
         modal.style.display = 'block';
     });
@@ -47,6 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     optionsForm.addEventListener('submit', (event) => {
         event.preventDefault();
+        localStorage.setItem('difficulty', difficultySelect.value);
         optionsModal.style.display = 'none';
         generateAndDisplayExercise(); // Générer un nouveau test après la modification des options
     });
