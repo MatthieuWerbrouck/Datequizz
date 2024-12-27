@@ -232,6 +232,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function createDropdown(options, correctValue) {
         const select = document.createElement('select');
+        
+        // Ajouter une option par défaut
+        const defaultOption = document.createElement('option');
+        defaultOption.value = '';
+        defaultOption.textContent = 'Choisissez une réponse';
+        defaultOption.disabled = true;
+        defaultOption.selected = true;
+        select.appendChild(defaultOption);
+
         options.forEach(option => {
             const opt = document.createElement('option');
             opt.value = option;
