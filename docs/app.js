@@ -3,6 +3,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const generateExerciseButton = document.getElementById('generateExercise');
     const validateExerciseButton = document.getElementById('validateExercise');
     const clearListButton = document.getElementById('clearList');
+    const exportJsonButton = document.getElementById('exportJson');
+    const importJsonButton = document.getElementById('importJson');
+    const fileInput = document.getElementById('fileInput');
     const exerciseOutput = document.getElementById('exerciseOutput');
     const validationResult = document.getElementById('validationResult');
     const openModalButton = document.getElementById('openModal');
@@ -51,6 +54,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
     clearListButton.addEventListener('click', () => {
         clearList();
+    });
+
+    exportJsonButton.addEventListener('click', () => {
+        exportJson();
+    });
+
+    importJsonButton.addEventListener('click', () => {
+        fileInput.click();
+    });
+
+    fileInput.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const items = JSON.parse(e.target.result);
+                    if (Array.isArray(items)) {
+                        writeItems(items);
+                        generateAndDisplayExercise();
+                    } else {
+                        alert('Le fichier JSON doit contenir un tableau d\'éléments.');
+                    }
+                } catch (error) {
+                    alert('Erreur lors de la lecture du fichier JSON.');
+                }
+            };
+            reader.readAsText(file);
+        }
     });
 
     function readItems() {
@@ -224,6 +256,18 @@ document.addEventListener('DOMContentLoaded', () => {
         exerciseOutput.innerHTML = '';
         validationResult.textContent = '';
         modal.style.display = 'block';
+    }
+
+    function exportJson() {
+        const items = readItems();
+        const json = JSON.stringify(items, null, 2);
+        const blob = new Blob([json], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'items.json';
+        a.click();
+        URL.revokeObjectURL(url);
     }
 
     function generateAndDisplayExercise() {
