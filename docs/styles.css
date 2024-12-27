@@ -595,3 +595,47 @@ button:hover {
     background-color: #f2dede; /* Rouge clair pour incorrect */
 }
 
+/* Styles pour le modal des options */
+#optionsModal .modal-content {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 50%; /* Ajustez cette valeur selon vos besoins */
+    max-width: 500px; /* Largeur maximale */
+    margin: 10% auto; /* Centré verticalement */
+}
+
+#optionsModal .modal-content h2 {
+    margin-top: 0;
+    color: #333;
+}
+
+#optionsModal .modal-content label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+#optionsModal .modal-content select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#optionsModal .modal-content button {
+    background-color: #5cb85c;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+}
+
+#optionsModal .modal-content button:hover {
+    background-color: #4cae4c;
+}
