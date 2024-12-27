@@ -5,13 +5,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const clearListButton = document.getElementById('clearList');
     const exportJsonButton = document.getElementById('exportJson');
     const importJsonButton = document.getElementById('importJson');
+    const openOptionsButton = document.getElementById('openOptions');
     const fileInput = document.getElementById('fileInput');
     const exerciseOutput = document.getElementById('exerciseOutput');
     const validationResult = document.getElementById('validationResult');
     const openModalButton = document.getElementById('openModal');
     const difficultySelect = document.getElementById('difficulty');
     const modal = document.getElementById('myModal');
+    const optionsModal = document.getElementById('optionsModal');
     const closeModalButton = document.getElementsByClassName('close')[0];
+    const closeOptionsButton = document.getElementsByClassName('close-options')[0];
+    const optionsForm = document.getElementById('optionsForm');
 
     openModalButton.addEventListener('click', () => {
         modal.style.display = 'block';
@@ -25,6 +29,26 @@ document.addEventListener('DOMContentLoaded', () => {
         if (event.target == modal) {
             modal.style.display = 'none';
         }
+    });
+
+    openOptionsButton.addEventListener('click', () => {
+        optionsModal.style.display = 'block';
+    });
+
+    closeOptionsButton.addEventListener('click', () => {
+        optionsModal.style.display = 'none';
+    });
+
+    window.addEventListener('click', (event) => {
+        if (event.target == optionsModal) {
+            optionsModal.style.display = 'none';
+        }
+    });
+
+    optionsForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        optionsModal.style.display = 'none';
+        generateAndDisplayExercise(); // Générer un nouveau test après la modification des options
     });
 
     form.addEventListener('submit', (event) => {
@@ -154,6 +178,9 @@ document.addEventListener('DOMContentLoaded', () => {
         shuffleArray(summaries);
 
         const difficulty = difficultySelect.value;
+
+        // Mélanger les éléments de l'exercice
+        shuffleArray(exercise);
 
         exercise.forEach(item => {
             const row = document.createElement('tr');

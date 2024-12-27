@@ -20,6 +20,7 @@
         <button id="clearList">Effacer la liste</button>
         <button id="exportJson">Exporter en JSON</button>
         <button id="importJson">Importer JSON</button>
+        <button id="openOptions">Options</button>
         <input type="file" id="fileInput" style="display: none;">
     </div>
 
@@ -44,13 +45,19 @@
         </div>
     </div>
 
-    <!-- Sélection du mode de difficulté -->
-    <div class="difficulty-selection">
-        <label for="difficulty">Mode de difficulté:</label>
-        <select id="difficulty">
-            <option value="easy">Facile</option>
-            <option value="hard">Difficile</option>
-        </select>
+    <!-- Modal pour les options -->
+    <div id="optionsModal" class="modal">
+        <div class="modal-content">
+            <span class="close-options">&times;</span>
+            <form id="optionsForm">
+                <label for="difficulty">Mode de difficulté:</label>
+                <select id="difficulty">
+                    <option value="easy">Facile</option>
+                    <option value="hard">Difficile</option>
+                </select>
+                <button type="submit">Enregistrer</button>
+            </form>
+        </div>
     </div>
 
     <script src="app.js"></script>
