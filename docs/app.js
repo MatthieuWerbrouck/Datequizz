@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeModalButton = document.getElementsByClassName('close')[0];
     const closeOptionsButton = document.getElementsByClassName('close-options')[0];
     const optionsForm = document.getElementById('optionsForm');
+    const clock = document.getElementById('clock');
 
     // Charger les options depuis localStorage
     const savedDifficulty = localStorage.getItem('difficulty');
@@ -273,6 +274,7 @@ document.addEventListener('DOMContentLoaded', () => {
         select.dataset.correctValue = correctValue;
         return select;
     }
+
     function validateExercise() {
         resetValidationClasses();
 
@@ -337,6 +339,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Générer et afficher l'exercice automatiquement au chargement de la page
     generateAndDisplayExercise();
+
+    // Fonction pour mettre à jour l'heure
+    function updateClock() {
+        const now = new Date();
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        const seconds = now.getSeconds().toString().padStart(2, '0');
+        clock.textContent = `${hours}:${minutes}:${seconds}`;
+    }
+
+    // Mettre à jour l'heure toutes les secondes
+    setInterval(updateClock, 1000);
+    updateClock(); // Mettre à jour immédiatement l'heure au chargement de la page
 });
 
 // Fonctions pour ouvrir et fermer le menu dépliant
