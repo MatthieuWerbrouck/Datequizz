@@ -79,11 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function generateExercise() {
         const items = readItems();
-        if (items.length === 0) {
-            return [];
-        }
-        const exerciseItems = items.sort(() => 0.5 - Math.random()).slice(0, 5);
-        return exerciseItems;
+        return items;
     }
 
     function shuffleArray(array) {
