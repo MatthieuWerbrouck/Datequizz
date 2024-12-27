@@ -258,6 +258,9 @@ document.addEventListener('DOMContentLoaded', () => {
             limitedOptions.push(correctValue);
         }
     
+        // Trier les options limitées
+        limitedOptions.sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+    
         // Mélanger les options limitées pour éviter que la bonne réponse soit toujours à la même position
         shuffleArray(limitedOptions);
     
@@ -270,7 +273,6 @@ document.addEventListener('DOMContentLoaded', () => {
         select.dataset.correctValue = correctValue;
         return select;
     }
-
     function validateExercise() {
         resetValidationClasses();
 
