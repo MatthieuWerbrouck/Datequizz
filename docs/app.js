@@ -66,6 +66,35 @@ document.addEventListener('DOMContentLoaded', () => {
         generateAndDisplayExercise(); // Générer un nouveau test après la modification des options
     });
 
+    exportJsonButton.addEventListener('click', () => {
+        exportJson();
+    });
+
+    importJsonButton.addEventListener('click', () => {
+        fileInput.click();
+    });
+
+    fileInput.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const items = JSON.parse(e.target.result);
+                    if (Array.isArray(items)) {
+                        writeItems(items);
+                        generateAndDisplayExercise();
+                    } else {
+                        alert('Le fichier JSON doit contenir un tableau d\'éléments.');
+                    }
+                } catch (error) {
+                    alert('Erreur lors de la lecture du fichier JSON.');
+                }
+            };
+            reader.readAsText(file);
+        }
+    });
+
     form.addEventListener('submit', (event) => {
         event.preventDefault();
         const dateFormat = document.getElementById('dateFormat').value;
@@ -94,35 +123,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     clearListButton.addEventListener('click', () => {
         clearList();
-    });
-
-    exportJsonButton.addEventListener('click', () => {
-        exportJson();
-    });
-
-    importJsonButton.addEventListener('click', () => {
-        fileInput.click();
-    });
-
-    fileInput.addEventListener('change', (event) => {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                try {
-                    const items = JSON.parse(e.target.result);
-                    if (Array.isArray(items)) {
-                        writeItems(items);
-                        generateAndDisplayExercise();
-                    } else {
-                        alert('Le fichier JSON doit contenir un tableau d\'éléments.');
-                    }
-                } catch (error) {
-                    alert('Erreur lors de la lecture du fichier JSON.');
-                }
-            };
-            reader.readAsText(file);
-        }
     });
 
     function readItems() {
@@ -336,3 +336,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Générer et afficher l'exercice automatiquement au chargement de la page
     generateAndDisplayExercise();
 });
+
+// Fonctions pour ouvrir et fermer le menu dépliant
+function openNav() {
+    document.getElementById("sideNav").style.width = "250px";
+}
+
+function closeNav() {
+    document.getElementById("sideNav").style.width = "0";
+}

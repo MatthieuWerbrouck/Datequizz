@@ -12,17 +12,19 @@
     <div id="exerciseOutput"></div>
     <div id="validationResult"></div>
 
-    <!-- Menu de navigation -->
-    <div class="bottom-nav">
+    <!-- Menu dépliant à gauche -->
+    <div id="sideNav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <button id="openModal">Ajouter un élément</button>
         <button id="generateExercise">Générer un exercice</button>
         <button id="validateExercise">Valider l'exercice</button>
         <button id="clearList">Effacer la liste</button>
-        <button id="exportJson">Exporter en JSON</button>
-        <button id="importJson">Importer JSON</button>
         <button id="openOptions">Options</button>
         <input type="file" id="fileInput" style="display: none;">
     </div>
+
+    <!-- Bouton pour ouvrir le menu -->
+    <span class="openbtn" onclick="openNav()">&#9776; Menu</span>
 
     <!-- Modal pour ajouter un élément -->
     <div id="myModal" class="modal">
@@ -44,24 +46,33 @@
             </form>
         </div>
     </div>
-<!-- Modal pour les options -->
-<div id="optionsModal" class="modal">
-    <div class="modal-content">
-        <span class="close-options">&times;</span>
-        <h2>Options</h2>
-        <form id="optionsForm">
-            <label for="difficulty">Mode de difficulté:</label>
-            <select id="difficulty">
-                <option value="easy">Facile</option>
-                <option value="hard">Difficile</option>
-            </select>
-            <label for="numChoices">Nombre de choix dans les listes déroulantes:</label>
-            <input type="range" id="numChoices" min="1" max="10" value="3" oninput="numChoicesOutput.value = numChoices.value">
-            <output id="numChoicesOutput">3</output>
-            <button type="submit">Enregistrer</button>
-        </form>
+
+    <!-- Modal pour les options -->
+    <div id="optionsModal" class="modal">
+        <div class="modal-content">
+            <span class="close-options">&times;</span>
+            <h2>Options</h2>
+            <form id="optionsForm">
+                <div class="form-group">
+                    <label for="difficulty">Mode de difficulté:</label>
+                    <select id="difficulty">
+                        <option value="easy">Facile</option>
+                        <option value="hard">Difficile</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="numChoices">Nombre de choix dans les listes déroulantes:</label>
+                    <input type="range" id="numChoices" min="1" max="10" value="3" oninput="numChoicesOutput.value = numChoices.value">
+                    <output id="numChoicesOutput">3</output>
+                </div>
+                <button type="submit">Enregistrer</button>
+            </form>
+            <div class="json-buttons">
+                <button id="exportJson">Exporter en JSON</button>
+                <button id="importJson">Importer JSON</button>
+            </div>
+        </div>
     </div>
-</div>
 
     <script src="app.js"></script>
 </body>

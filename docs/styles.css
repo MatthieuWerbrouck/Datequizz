@@ -643,3 +643,119 @@ button:hover {
     width: 100%;
     margin-bottom: 10px;
 }
+/* Styles pour le menu dépliant à gauche */
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #333;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidenav button {
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 18px;
+    color: white;
+    display: block;
+    transition: 0.3s;
+    background-color: #5cb85c;
+    border: none;
+    border-radius: 4px;
+    margin: 10px;
+    text-align: left;
+}
+
+.sidenav button:hover {
+    background-color: #4cae4c;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+.openbtn {
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #5cb85c;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+}
+
+.openbtn:hover {
+    background-color: #4cae4c;
+}
+
+/* Styles pour le modal des options */
+#optionsModal .modal-content {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 50%; /* Ajustez cette valeur selon vos besoins */
+    max-width: 500px; /* Largeur maximale */
+    margin: 10% auto; /* Centré verticalement */
+}
+
+#optionsModal .modal-content h2 {
+    margin-top: 0;
+    color: #333;
+}
+
+#optionsModal .modal-content .form-group {
+    margin-bottom: 20px;
+}
+
+#optionsModal .modal-content label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+#optionsModal .modal-content select,
+#optionsModal .modal-content input[type="range"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#optionsModal .modal-content button {
+    background-color: #5cb85c;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+}
+
+#optionsModal .modal-content button:hover {
+    background-color: #4cae4c;
+}
+
+#optionsModal .modal-content .json-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+#optionsModal .modal-content .json-buttons button {
+    width: 48%;
+}
