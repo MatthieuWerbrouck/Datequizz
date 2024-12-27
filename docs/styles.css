@@ -211,3 +211,250 @@ button:hover {
     background-color: #f2dede; /* Rouge clair pour incorrect */
     border-left-color: #a94442; /* Rouge foncé pour incorrect */
 }
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+
+h1 {
+    color: #333;
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+input[type="text"],
+input[type="date"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #5cb85c;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #4cae4c;
+}
+
+.exercise {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #e7f3fe;
+    border-left: 6px solid #2196F3;
+}
+
+#datesContainer, #labelsContainer {
+    display: inline-block;
+    width: 45%;
+    vertical-align: top;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+}
+
+.exercise-item {
+    padding: 10px;
+    margin: 5px 0;
+    background-color: #e7f3fe;
+    border-left: 6px solid #2196F3;
+    cursor: move;
+}
+
+#validationResult {
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+#validationResult.correct {
+    background-color: #dff0d8;
+    color: #3c763d;
+}
+
+#validationResult.incorrect {
+    background-color: #f2dede;
+    color: #a94442;
+}
+
+#validationResult {
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+#validationResult.correct {
+    background-color: #dff0d8;
+    color: #3c763d;
+}
+
+#validationResult.incorrect {
+    background-color: #f2dede;
+    color: #a94442;
+}
+
+.exercise-item.correct {
+    background-color: #dff0d8; /* Vert clair pour correct */
+    border-left-color: #3c763d; /* Vert foncé pour correct */
+}
+
+.exercise-item.incorrect {
+    background-color: #f2dede; /* Rouge clair pour incorrect */
+    border-left-color: #a94442; /* Rouge foncé pour incorrect */
+}
+
+/* Styles pour la modal */
+.modal {
+    display: none; /* Masqué par défaut */
+    position: fixed; /* Reste en place */
+    z-index: 1; /* Au-dessus de tout */
+    left: 0;
+    top: 0;
+    width: 100%; /* Largeur complète */
+    height: 100%; /* Hauteur complète */
+    overflow: auto; /* Défilement si nécessaire */
+    background-color: rgb(0,0,0); /* Couleur de fond */
+    background-color: rgba(0,0,0,0.4); /* Couleur de fond avec opacité */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% du haut et centré */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Largeur */
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Styles pour le menu de navigation en bas de la page */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #333;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.bottom-nav button {
+    background-color: #5cb85c;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    flex: 1;
+    margin: 0 5px;
+    text-align: center;
+}
+
+.bottom-nav button:hover {
+    background-color: #4cae4c;
+}
+
+#datesContainer, #labelsContainer, #summariesContainer {
+    display: inline-block;
+    width: 30%;
+    vertical-align: top;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    max-height: 400px; /* Ajustez cette valeur selon vos besoins */
+    overflow-y: auto; /* Permet le défilement vertical */
+}
+
+#datesContainer h3, #labelsContainer h3, #summariesContainer h3 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.list {
+    max-height: 400px; /* Ajustez cette valeur selon vos besoins */
+    overflow-y: auto;
+}
+
+.exercise-item {
+    padding: 10px;
+    margin: 5px 0;
+    background-color: #e7f3fe;
+    border-left: 6px solid #2196F3;
+    cursor: move;
+}
+
+.exercise-item.correct {
+    background-color: #dff0d8; /* Vert clair pour correct */
+    border-left-color: #3c763d; /* Vert foncé pour correct */
+}
+
+.exercise-item.incorrect {
+    background-color: #f2dede; /* Rouge clair pour incorrect */
+    border-left-color: #a94442; /* Rouge foncé pour incorrect */
+}
+
+/* Styles pour le tableau */
+.exercise-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.exercise-table th, .exercise-table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+}
+
+.exercise-table th {
+    background-color: #f4f4f4;
+}
+
+.exercise-table select {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.exercise-table select.correct {
+    background-color: #dff0d8; /* Vert clair pour correct */
+}
+
+.exercise-table select.incorrect {
+    background-color: #f2dede; /* Rouge clair pour incorrect */
+}

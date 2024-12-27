@@ -129,27 +129,21 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const datesContainer = document.createElement('div');
-        datesContainer.id = 'datesContainer';
-        const labelsContainer = document.createElement('div');
-        labelsContainer.id = 'labelsContainer';
-        const summariesContainer = document.createElement('div');
-        summariesContainer.id = 'summariesContainer';
+        const table = document.createElement('table');
+        table.className = 'exercise-table';
 
-        // Ajouter les titres des colonnes
-        const dateTitle = document.createElement('h3');
-        dateTitle.textContent = 'Dates';
-        datesContainer.appendChild(dateTitle);
+        const thead = document.createElement('thead');
+        const headerRow = document.createElement('tr');
+        ['Date', 'Libellé', 'Résumé'].forEach(text => {
+            const th = document.createElement('th');
+            th.textContent = text;
+            headerRow.appendChild(th);
+        });
+        thead.appendChild(headerRow);
+        table.appendChild(thead);
 
-        const labelTitle = document.createElement('h3');
-        labelTitle.textContent = 'Libellés';
-        labelsContainer.appendChild(labelTitle);
+        const tbody = document.createElement('tbody');
 
-        const summaryTitle = document.createElement('h3');
-        summaryTitle.textContent = 'Résumés';
-        summariesContainer.appendChild(summaryTitle);
-
-        // Mélanger les éléments de chaque colonne
         const dates = exercise.map(item => item.date);
         const labels = exercise.map(item => item.label);
         const summaries = exercise.map(item => item.summary);
@@ -158,96 +152,79 @@ document.addEventListener('DOMContentLoaded', () => {
         shuffleArray(labels);
         shuffleArray(summaries);
 
-        dates.forEach(date => {
-            const dateDiv = document.createElement('div');
-            dateDiv.className = 'exercise-item';
-            dateDiv.textContent = date;
-            datesContainer.appendChild(dateDiv);
+        exercise.forEach(item => {
+            const row = document.createElement('tr');
+
+            const dateCell = document.createElement('td');
+            const labelCell = document.createElement('td');
+            const summaryCell = document.createElement('td');
+
+            const emptyIndex = Math.floor(Math.random() * 3);
+            if (emptyIndex === 0) {
+                dateCell.appendChild(createDropdown(dates, item.date));
+                labelCell.textContent = item.label;
+                summaryCell.textContent = item.summary;
+            } else if (emptyIndex === 1) {
+                dateCell.textContent = item.date;
+                labelCell.appendChild(createDropdown(labels, item.label));
+                summaryCell.textContent = item.summary;
+            } else {
+                dateCell.textContent = item.date;
+                labelCell.textContent = item.label;
+                summaryCell.appendChild(createDropdown(summaries, item.summary));
+            }
+
+            row.appendChild(dateCell);
+            row.appendChild(labelCell);
+            row.appendChild(summaryCell);
+            tbody.appendChild(row);
         });
 
-        labels.forEach(label => {
-            const labelDiv = document.createElement('div');
-            labelDiv.className = 'exercise-item';
-            labelDiv.textContent = label;
-            labelsContainer.appendChild(labelDiv);
-        });
+        table.appendChild(tbody);
+        exerciseOutput.appendChild(table);
+    }
 
-        summaries.forEach(summary => {
-            const summaryDiv = document.createElement('div');
-            summaryDiv.className = 'exercise-item';
-            summaryDiv.textContent = summary;
-            summariesContainer.appendChild(summaryDiv);
+    function createDropdown(options, correctValue) {
+        const select = document.createElement('select');
+        options.forEach(option => {
+            const opt = document.createElement('option');
+            opt.value = option;
+            opt.textContent = option;
+            select.appendChild(opt);
         });
-
-        exerciseOutput.appendChild(datesContainer);
-        exerciseOutput.appendChild(labelsContainer);
-        exerciseOutput.appendChild(summariesContainer);
-
-        new Sortable(datesContainer, {
-            group: 'shared',
-            animation: 150
-        });
-
-        new Sortable(labelsContainer, {
-            group: 'shared',
-            animation: 150
-        });
-
-        new Sortable(summariesContainer, {
-            group: 'shared',
-            animation: 150
-        });
+        select.dataset.correctValue = correctValue;
+        return select;
     }
 
     function validateExercise() {
         resetValidationClasses();
 
-        const datesContainer = document.getElementById('datesContainer');
-        const labelsContainer = document.getElementById('labelsContainer');
-        const summariesContainer = document.getElementById('summariesContainer');
-        const dateItems = datesContainer.getElementsByClassName('exercise-item');
-        const labelItems = labelsContainer.getElementsByClassName('exercise-item');
-        const summaryItems = summariesContainer.getElementsByClassName('exercise-item');
-
+        const rows = document.querySelectorAll('.exercise-table tbody tr');
         let correct = true;
-        for (let i = 0; i < dateItems.length; i++) {
-            const date = dateItems[i].textContent;
-            const label = labelItems[i].textContent;
-            const summary = summaryItems[i].textContent;
-            const items = readItems();
-            const item = items.find(item => item.date === date && item.label === label && item.summary === summary);
-            if (item) {
-                dateItems[i].classList.add('correct');
-                labelItems[i].classList.add('correct');
-                summaryItems[i].classList.add('correct');
-                console.log(`Correct: ${date} - ${label} - ${summary}`);
-            } else {
-                dateItems[i].classList.add('incorrect');
-                labelItems[i].classList.add('incorrect');
-                summaryItems[i].classList.add('incorrect');
-                console.log(`Incorrect: ${date} - ${label} - ${summary}`);
-                correct = false;
+
+        rows.forEach(row => {
+            const cells = row.children;
+            for (let i = 0; i < cells.length; i++) {
+                const cell = cells[i];
+                if (cell.children.length > 0 && cell.children[0].tagName === 'SELECT') {
+                    const select = cell.children[0];
+                    if (select.value === select.dataset.correctValue) {
+                        select.classList.add('correct');
+                    } else {
+                        select.classList.add('incorrect');
+                        correct = false;
+                    }
+                }
             }
-        }
+        });
 
         validationResult.textContent = correct ? 'Toutes les associations sont correctes !' : 'Il y a des erreurs dans les associations.';
     }
 
     function resetValidationClasses() {
-        const dateItems = document.querySelectorAll('#datesContainer .exercise-item');
-        const labelItems = document.querySelectorAll('#labelsContainer .exercise-item');
-        const summaryItems = document.querySelectorAll('#summariesContainer .exercise-item');
-
-        dateItems.forEach(item => {
-            item.classList.remove('correct', 'incorrect');
-        });
-
-        labelItems.forEach(item => {
-            item.classList.remove('correct', 'incorrect');
-        });
-
-        summaryItems.forEach(item => {
-            item.classList.remove('correct', 'incorrect');
+        const selects = document.querySelectorAll('.exercise-table select');
+        selects.forEach(select => {
+            select.classList.remove('correct', 'incorrect');
         });
     }
 
