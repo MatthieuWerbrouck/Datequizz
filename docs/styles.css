@@ -326,3 +326,14 @@ button:hover {
     border-radius: 4px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
+/* Styles pour les éléments corrects et incorrects */
+.correct {
+    background-color: #d4edda; /* Vert clair pour correct */
+    border-left: 6px solid #155724; /* Vert foncé pour correct */
+}
+
+.incorrect {
+    background-color: #f8d7da; /* Rouge clair pour incorrect */
+    border-left: 6px solid #721c24; /* Rouge foncé pour incorrect */
+}
