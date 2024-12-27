@@ -56,7 +56,8 @@
                 <option value="hard">Difficile</option>
             </select>
             <label for="numChoices">Nombre de choix dans les listes déroulantes:</label>
-            <input type="number" id="numChoices" min="1" value="3">
+            <input type="range" id="numChoices" min="1" max="10" value="3" oninput="numChoicesOutput.value = numChoices.value">
+            <output id="numChoicesOutput">3</output>
             <button type="submit">Enregistrer</button>
         </form>
     </div>

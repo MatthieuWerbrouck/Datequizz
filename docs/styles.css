@@ -639,3 +639,7 @@ button:hover {
 #optionsModal .modal-content button:hover {
     background-color: #4cae4c;
 }
+#optionsModal .modal-content input[type="range"] {
+    width: 100%;
+    margin-bottom: 10px;
+}

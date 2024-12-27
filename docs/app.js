@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const openModalButton = document.getElementById('openModal');
     const difficultySelect = document.getElementById('difficulty');
     const numChoicesInput = document.getElementById('numChoices');
+    const numChoicesOutput = document.getElementById('numChoicesOutput');
     const modal = document.getElementById('myModal');
     const optionsModal = document.getElementById('optionsModal');
     const closeModalButton = document.getElementsByClassName('close')[0];
@@ -26,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (savedNumChoices) {
         numChoicesInput.value = savedNumChoices;
+        numChoicesOutput.value = savedNumChoices;
     }
 
     openModalButton.addEventListener('click', () => {
@@ -334,4 +336,3 @@ document.addEventListener('DOMContentLoaded', () => {
     // Générer et afficher l'exercice automatiquement au chargement de la page
     generateAndDisplayExercise();
 });
-
