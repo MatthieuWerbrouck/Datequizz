@@ -161,6 +161,9 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        const container = document.createElement('div');
+        container.className = 'exercise-table-container';
+
         const table = document.createElement('table');
         table.className = 'exercise-table';
 
@@ -223,7 +226,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         table.appendChild(tbody);
-        exerciseOutput.appendChild(table);
+        container.appendChild(table);
+        exerciseOutput.appendChild(container);
     }
 
     function createDropdown(options, correctValue) {
