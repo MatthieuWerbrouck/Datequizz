@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const validationResult = document.getElementById('validationResult');
     const openModalButton = document.getElementById('openModal');
     const difficultySelect = document.getElementById('difficulty');
+    const numChoicesInput = document.getElementById('numChoices');
     const modal = document.getElementById('myModal');
     const optionsModal = document.getElementById('optionsModal');
     const closeModalButton = document.getElementsByClassName('close')[0];
@@ -19,8 +20,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Charger les options depuis localStorage
     const savedDifficulty = localStorage.getItem('difficulty');
+    const savedNumChoices = localStorage.getItem('numChoices');
     if (savedDifficulty) {
         difficultySelect.value = savedDifficulty;
+    }
+    if (savedNumChoices) {
+        numChoicesInput.value = savedNumChoices;
     }
 
     openModalButton.addEventListener('click', () => {
@@ -54,6 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
     optionsForm.addEventListener('submit', (event) => {
         event.preventDefault();
         localStorage.setItem('difficulty', difficultySelect.value);
+        localStorage.setItem('numChoices', numChoicesInput.value);
         optionsModal.style.display = 'none';
         generateAndDisplayExercise(); // Générer un nouveau test après la modification des options
     });
@@ -153,20 +159,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function displayExercise(exercise) {
+    function displayExercise(exercise, numChoices) {
         exerciseOutput.innerHTML = '';
-
+    
         if (exercise.length === 0) {
             exerciseOutput.textContent = 'Aucun exercice à afficher.';
             return;
         }
-
+    
         const container = document.createElement('div');
         container.className = 'exercise-table-container';
-
+    
         const table = document.createElement('table');
         table.className = 'exercise-table';
-
+    
         const thead = document.createElement('thead');
         const headerRow = document.createElement('tr');
         ['Date', 'Libellé', 'Résumé'].forEach(text => {
@@ -176,61 +182,61 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         thead.appendChild(headerRow);
         table.appendChild(thead);
-
+    
         const tbody = document.createElement('tbody');
-
+    
         const dates = exercise.map(item => item.date);
         const labels = exercise.map(item => item.label);
         const summaries = exercise.map(item => item.summary);
-
+    
         shuffleArray(dates);
         shuffleArray(labels);
         shuffleArray(summaries);
-
+    
         const difficulty = difficultySelect.value;
-
+    
         // Mélanger les éléments de l'exercice
         shuffleArray(exercise);
-
+    
         exercise.forEach(item => {
             const row = document.createElement('tr');
-
+    
             const dateCell = document.createElement('td');
             const labelCell = document.createElement('td');
             const summaryCell = document.createElement('td');
-
+    
             const emptyIndices = difficulty === 'easy' ? [Math.floor(Math.random() * 3)] : [Math.floor(Math.random() * 3), (Math.floor(Math.random() * 2) + 1) % 3];
-
+    
             if (emptyIndices.includes(0)) {
-                dateCell.appendChild(createDropdown(dates, item.date));
+                dateCell.appendChild(createDropdown(dates, item.date, numChoices));
             } else {
                 dateCell.textContent = item.date;
             }
-
+    
             if (emptyIndices.includes(1)) {
-                labelCell.appendChild(createDropdown(labels, item.label));
+                labelCell.appendChild(createDropdown(labels, item.label, numChoices));
             } else {
                 labelCell.textContent = item.label;
             }
-
+    
             if (emptyIndices.includes(2)) {
-                summaryCell.appendChild(createDropdown(summaries, item.summary));
+                summaryCell.appendChild(createDropdown(summaries, item.summary, numChoices));
             } else {
                 summaryCell.textContent = item.summary;
             }
-
+    
             row.appendChild(dateCell);
             row.appendChild(labelCell);
             row.appendChild(summaryCell);
             tbody.appendChild(row);
         });
-
+    
         table.appendChild(tbody);
         container.appendChild(table);
         exerciseOutput.appendChild(container);
     }
 
-    function createDropdown(options, correctValue) {
+    function createDropdown(options, correctValue, numChoices) {
         const select = document.createElement('select');
         
         // Ajouter une option par défaut
@@ -240,8 +246,20 @@ document.addEventListener('DOMContentLoaded', () => {
         defaultOption.disabled = true;
         defaultOption.selected = true;
         select.appendChild(defaultOption);
-
-        options.forEach(option => {
+    
+        // Limiter le nombre de choix
+        let limitedOptions = options.slice(0, numChoices);
+    
+        // Ajouter la bonne réponse si elle n'est pas déjà incluse
+        if (!limitedOptions.includes(correctValue)) {
+            limitedOptions.pop(); // Retirer le dernier élément pour faire de la place
+            limitedOptions.push(correctValue);
+        }
+    
+        // Mélanger les options limitées pour éviter que la bonne réponse soit toujours à la même position
+        shuffleArray(limitedOptions);
+    
+        limitedOptions.forEach(option => {
             const opt = document.createElement('option');
             opt.value = option;
             opt.textContent = option;
@@ -307,10 +325,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (exercise.length === 0) {
             modal.style.display = 'block';
         } else {
-            displayExercise(exercise);
+            // Ajuster le nombre de choix en fonction du nombre total d'éléments disponibles
+            const numChoices = Math.min(parseInt(numChoicesInput.value, 10), exercise.length);
+            displayExercise(exercise, numChoices);
         }
     }
 
     // Générer et afficher l'exercice automatiquement au chargement de la page
     generateAndDisplayExercise();
 });
+
